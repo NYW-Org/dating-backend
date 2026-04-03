@@ -1,0 +1,7 @@
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
+
+default:
+  phone-number: ${PHONE}
+  role: ${Role}
