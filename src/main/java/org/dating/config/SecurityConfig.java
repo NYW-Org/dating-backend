@@ -22,8 +22,6 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-    CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
-
     httpSecurity
         .csrf(AbstractHttpConfigurer::disable)
         .cors(Customizer.withDefaults())
@@ -31,18 +29,9 @@ public class SecurityConfig {
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(
             auth ->
-                auth.requestMatchers(HttpMethod.PUT, "/**")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/**")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.PUT, "/**")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/**")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.OPTIONS, "/**")
-                    .permitAll()
-                    .requestMatchers("/api/auth/**")
-                    .permitAll()
+                auth
+                  .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                  .requestMatchers("/api/auth/**").permitAll()
                     .anyRequest()
                     .authenticated());
 
@@ -53,9 +42,9 @@ public class SecurityConfig {
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-    corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:4200"));
+    corsConfiguration.setAllowedOriginPatterns(List.of("*"));
     corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
-    corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-XSRF-TOKEN"));
+    corsConfiguration.setAllowedHeaders(List.of("*"));
     corsConfiguration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
