@@ -2,7 +2,7 @@ name: CI-CD Pipeline for build and deploy
 
 on:
   push:
-    branches: [ "main", "feature/*" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
