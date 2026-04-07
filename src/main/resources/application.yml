@@ -1,3 +1,18 @@
+server:
+  port: ${PORT:8080}
+  shutdown: graceful
+
+spring:
+  main:
+    lazy-initialization: true
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      idle-timeout: 30000
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
 jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
