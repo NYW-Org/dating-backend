@@ -17,6 +17,15 @@ jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
 
+otp-service:
+  key: ${OTP_KEY}
+  base-url: ${OTP_BASE_URL}
+  customer-id: ${OTP_CUSTOMER_ID}
+  email-id: ${OTP_EMAIL_ID}
+  token-path: "/auth/v1/authentication/token"
+  send-otp-path: "/verification/v3/send"
+  validate-path: "/verification/v3/validateOtp"
+
 default:
   phone-number: ${PHONE}
   role: ${Role}
