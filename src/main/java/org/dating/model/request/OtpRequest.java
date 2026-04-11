@@ -10,7 +10,7 @@ import lombok.NonNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequest {
+public class OtpRequest {
     @NonNull
     private String phoneNumber;
 }

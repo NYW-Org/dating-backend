@@ -23,6 +23,7 @@ dependencies {
     // Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 
     // Jwt
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -36,6 +37,12 @@ dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // okhttp-client
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+
+    // JSON library to parse
+    implementation 'org.json:json:20240303'
 }
 
 test {

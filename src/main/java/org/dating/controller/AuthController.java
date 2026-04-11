@@ -1,8 +1,10 @@
 package org.dating.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.dating.model.request.ValidateOtpRequest;
 import org.dating.model.response.LoginResponse;
-import org.dating.model.request.LoginRequest;
+import org.dating.model.request.OtpRequest;
+import org.dating.model.response.OtpDataResponse;
 import org.dating.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +20,23 @@ public class AuthController {
 
   private final AuthService authService;
 
-  @PostMapping("/login")
-  public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-    String token = authService.validateUser(loginRequest);
+  @PostMapping("/validate-otp")
+  public ResponseEntity<LoginResponse> login(@RequestBody ValidateOtpRequest validateOtpRequest) {
+    String token = authService.validateUser(validateOtpRequest);
     if (token == null || token.isEmpty()) {
       LoginResponse.builder().message("Number not found");
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
           .body(LoginResponse.builder().message("Number not found").build());
     }
     return ResponseEntity.ok(LoginResponse.builder().token(token).message("Login Successful").build());
+  }
+
+  @PostMapping("/send-otp")
+  public ResponseEntity<OtpDataResponse> sendOtp(@RequestBody OtpRequest otpRequest) {
+    OtpDataResponse otpDataResponse = authService.sendOtp(otpRequest);
+    if(otpDataResponse.getVerificationId() == null ) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(otpDataResponse);
+    }
+    return ResponseEntity.ok(otpDataResponse);
   }
 }
