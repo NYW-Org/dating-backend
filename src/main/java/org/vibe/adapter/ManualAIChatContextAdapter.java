@@ -11,7 +11,11 @@ import org.vibe.dto.AIUserData;
 import org.vibe.enums.AIGoal;
 import org.vibe.enums.AIRole;
 
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -25,17 +29,26 @@ public class ManualAIChatContextAdapter implements AIChatContextAdapterStrategy 
         AIChatMessageDto.builder()
             .role(AIRole.APP)
             .message("What is your preferred lang?")
-            .hint(List.of("English"))
             .build();
+
+    Map<AIGoal, Object> requestedData = createRequestedData();
 
     return Optional.of(
         AIChatContext.builder()
             .sessionId(webSocketSession.getId())
             .currentGoal(AIGoal.LANG_PREF)
-            .requestData(new AIUserData())
+            .requestData(requestedData)
             .conversationHistory(List.of(aiChatMessageDto))
             .attemptCount(1)
             .build());
+  }
+
+  public Map<AIGoal, Object> createRequestedData() {
+    Map<AIGoal, Object> requestedData = new EnumMap<>(AIGoal.class);
+    for (AIGoal goal : AIGoal.values()) {
+      requestedData.put(goal, null);
+    }
+    return requestedData;
   }
 
   public Optional<AIChatContext> adaptTextMessage(String message) {
