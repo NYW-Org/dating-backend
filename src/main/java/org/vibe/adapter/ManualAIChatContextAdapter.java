@@ -29,7 +29,6 @@ public class ManualAIChatContextAdapter implements AIChatContextAdapterStrategy 
         AIChatMessageDto.builder()
             .role(AIRole.APP)
             .message("What is your preferred lang?")
-            .hint(List.of("English"))
             .build();
 
     Map<AIGoal, Object> requestedData = createRequestedData();

@@ -37,6 +37,9 @@ otp-service:
   send-otp-path: "/verification/v3/send"
   validate-path: "/verification/v3/validateOtp"
 
+qwen-service:
+  base-url: ${AI_BASE_URL}
+
 default:
   phone-number: ${PHONE}
   role: ${Role}

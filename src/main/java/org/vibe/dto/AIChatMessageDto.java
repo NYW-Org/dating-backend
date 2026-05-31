@@ -17,5 +17,5 @@ import java.util.List;
 public class AIChatMessageDto {
     private AIRole role;
     private String message;
-    private List<String> hint;
+//    private List<String> hint;
 }

@@ -2,6 +2,7 @@ package org.vibe.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,10 +22,13 @@ public class QwenModelService {
 
   private final RestTemplate restTemplate;
 
+  @Value("${qwen-service.base-url}")
+  private String baseUrl;
+
   public AIModelResponse fetchChatResponse(AIChatContext aiChatContext) {
     ResponseEntity<AIModelResponse> aiModelResponse =
         restTemplate.exchange(
-            "", HttpMethod.POST, getHttpEntity(aiChatContext), AIModelResponse.class);
+            baseUrl, HttpMethod.POST, getHttpEntity(aiChatContext), AIModelResponse.class);
     return Objects.requireNonNull(aiModelResponse.getBody());
   }
 
